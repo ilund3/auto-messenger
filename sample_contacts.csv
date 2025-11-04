@@ -1,0 +1,5 @@
+phone,first_name,company,use_ai
++1234567890,John,Acme Corp,true
++1987654321,Jane,Tech Inc,false
++1555123456,Bob,Startup LLC,true
++1444987654,Alice,Big Corp,false

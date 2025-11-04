@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compose Message - Auto Messenger</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-title">Auto Messenger</h1>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Upload Contacts</a>
+                <a href="compose.html" class="nav-link active">Compose Message</a>
+                <a href="campaigns.html" class="nav-link">Campaigns</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <h2>Compose Message</h2>
+            <p>Create your message and set up followup timing</p>
+        </div>
+
+        <form class="compose-form" id="composeForm">
+            <div class="form-group">
+                <label for="campaignName">Campaign Name</label>
+                <input type="text" id="campaignName" name="campaignName" required placeholder="Enter campaign name">
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="6" required placeholder="Type your message here..."></textarea>
+                <div class="field-help">
+                    <p>Use these placeholders to personalize your message:</p>
+                    <div class="placeholder-tags">
+                        <span class="placeholder-tag" onclick="insertPlaceholder('{phone}')">{phone}</span>
+                        <span class="placeholder-tag" onclick="insertPlaceholder('{first_name}')">{first_name}</span>
+                        <span class="placeholder-tag" onclick="insertPlaceholder('{company}')">{company}</span>
+                        <span class="placeholder-tag" onclick="insertPlaceholder('{city}')">{city}</span>
+                        <span class="placeholder-tag" onclick="insertPlaceholder('{use_ai}')">{use_ai}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="followupCount">Number of Followups</label>
+                <input type="number" id="followupCount" name="followupCount" min="0" max="10" value="0" required onchange="updateFollowupMessages()">
+                <small class="field-help">Followups will be stored for manual sending from the campaigns page</small>
+            </div>
+
+            <div class="followup-messages" id="followupMessages" style="display: none;">
+                <h3>Followup Messages</h3>
+                <p class="field-help">Create custom messages for each followup. Use the same placeholders as the main message.</p>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="previewMessage()">Preview Message</button>
+                <button type="submit" class="btn btn-primary">Create Campaign</button>
+            </div>
+        </form>
+
+        <div class="preview-section" id="previewSection" style="display: none;">
+            <h3>Message Preview</h3>
+            <div class="preview-message" id="previewMessage"></div>
+        </div>
+
+        <div class="status-message" id="statusMessage"></div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Messenger</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-title">Auto Messenger</h1>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Upload Contacts</a>
+                <a href="compose.html" class="nav-link">Compose Message</a>
+                <a href="campaigns.html" class="nav-link">Campaigns</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <h2>Upload Contacts</h2>
+            <p>Upload a CSV file with your contacts to get started</p>
+        </div>
+
+        <div class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-content">
+                    <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7,10 12,15 17,10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <h3>Drop your CSV file here</h3>
+                    <p>or click to browse</p>
+                    <input type="file" id="fileInput" accept=".csv" style="display: none;">
+                </div>
+            </div>
+
+            <div class="upload-info">
+                <h4>CSV Format Requirements:</h4>
+                <ul>
+                    <li>Required columns: <code>phone</code>, <code>first_name</code>, <code>company</code>, <code>use_ai</code></li>
+                    <li>Optional column: <code>city</code> (will be available as <code>{city}</code> placeholder)</li>
+                    <li>Phone numbers should be in format: +1234567890</li>
+                    <li>use_ai column should contain: true/false or 1/0</li>
+                    <li>use_ai text will be used as placeholder <code>{use_ai}</code> in messages</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="contacts-section" id="contactsSection" style="display: none;">
+            <h3>Uploaded Contacts</h3>
+            <div class="contacts-list" id="contactsList"></div>
+        </div>
+
+        <div class="status-message" id="statusMessage"></div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

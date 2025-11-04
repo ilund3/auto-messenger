@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaigns - Auto Messenger</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-title">Auto Messenger</h1>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Upload Contacts</a>
+                <a href="compose.html" class="nav-link">Compose Message</a>
+                <a href="campaigns.html" class="nav-link active">Campaigns</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <h2>Campaigns</h2>
+            <p>Manage and send your messaging campaigns</p>
+        </div>
+
+        <div class="campaigns-section">
+            <div class="campaigns-header">
+                <h3>Your Campaigns</h3>
+                <div class="campaign-actions-header">
+                    <button class="btn btn-primary" onclick="refreshCampaigns()">Refresh</button>
+                    <button class="btn btn-danger" onclick="clearAllData()">Clear All Data</button>
+                </div>
+            </div>
+
+            <div class="campaigns-list" id="campaignsList">
+                <div class="loading">Loading campaigns...</div>
+            </div>
+        </div>
+
+        <div class="contact-removal-section">
+            <div class="section-header">
+                <h3>Remove Contacts</h3>
+                <p>Remove specific phone numbers from all campaigns to stop sending them messages</p>
+            </div>
+            
+            <div class="removal-form">
+                <div class="form-group">
+                    <label for="phoneToRemove">Phone Number to Remove:</label>
+                    <input type="tel" id="phoneToRemove" placeholder="e.g., +1234567890 or 1234567890" />
+                </div>
+                <button class="btn btn-warning" onclick="removeContact()">Remove Contact</button>
+            </div>
+            
+            <div class="removed-contacts" id="removedContacts">
+                <h4>Recently Removed Contacts:</h4>
+                <div class="removed-list" id="removedList">
+                    <p class="no-removed">No contacts removed yet</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="status-message" id="statusMessage"></div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
