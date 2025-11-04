@@ -32,14 +32,23 @@ const supabaseKey = process.env.SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseKey) {
   console.error('\n❌ Missing Supabase credentials!');
-  console.error('Please create a .env file in the project root with:');
-  console.error('  SUPABASE_URL=your_supabase_project_url_here');
-  console.error('  SUPABASE_ANON_KEY=your_supabase_anon_key_here');
+  if (isVercel) {
+    console.error('Please set SUPABASE_URL and SUPABASE_ANON_KEY in your Vercel project settings:');
+    console.error('  Settings → Environment Variables');
+  } else {
+    console.error('Please create a .env file in the project root with:');
+    console.error('  SUPABASE_URL=your_supabase_project_url_here');
+    console.error('  SUPABASE_ANON_KEY=your_supabase_anon_key_here');
+  }
   console.error('\nSee SUPABASE_SETUP.md for detailed instructions.\n');
-  process.exit(1);
+  // Don't exit in Vercel - let the function handle the error gracefully
+  if (!isVercel) {
+    process.exit(1);
+  }
 }
 
-const supabase = createClient(supabaseUrl, supabaseKey);
+// Create Supabase client only if credentials exist
+const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 
 // Middleware
 app.use(cors());
@@ -54,8 +63,20 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(publicDir, 'index.html'));
 });
 
+// Helper function to check Supabase connection
+const requireSupabase = (req, res) => {
+  if (!supabase) {
+    return res.status(500).json({ 
+      error: 'Supabase not configured. Please set SUPABASE_URL and SUPABASE_ANON_KEY environment variables in Vercel project settings.' 
+    });
+  }
+  return null; // Supabase is available
+};
+
 // Upload CSV endpoint
 app.post('/upload-csv', upload.single('csvFile'), async (req, res) => {
+  const supabaseError = requireSupabase(req, res);
+  if (supabaseError) return;
   if (!req.file) {
     return res.status(400).json({ error: 'No file uploaded' });
   }
@@ -135,6 +156,8 @@ app.post('/upload-csv', upload.single('csvFile'), async (req, res) => {
 
 // Get all contacts
 app.get('/contacts', async (req, res) => {
+  const supabaseError = requireSupabase(req, res);
+  if (supabaseError) return;
   const { data, error } = await supabase
     .from('contacts')
     .select('*')
