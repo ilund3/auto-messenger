@@ -9,6 +9,8 @@ A web application for automated messaging campaigns that integrates with macOS M
 - **Followup Scheduling**: Set custom followup timing (supports decimal days for precise timing)
 - **macOS Integration**: Sends messages through your Mac's Messages app
 - **Campaign Management**: Track and manage your messaging campaigns
+- **Row-Based Segmentation**: Select specific row ranges from each CSV upload when creating campaigns
+- **Dynamic Placeholders**: Compose screen surfaces placeholder chips for every column header in the selected CSV batch
 
 ## Installation
 
@@ -35,8 +37,10 @@ A web application for automated messaging campaigns that integrates with macOS M
 
 4. **Compose Message**:
    - Go to the "Compose Message" page
+   - Select the uploaded CSV batch you want to target
+   - Set the start and end row (inclusive) to segment the contacts for the campaign
    - Enter a campaign name
-   - Write your message using placeholders: `{phone}`, `{first_name}`, `{company}`
+   - Write your message using placeholders surfaced under the editor (chips reflect your CSV column headers)
    - Set the number of followups and days between followups
    - Use decimal values for precise timing (e.g., 0.0007 for ~1 minute)
 
@@ -54,6 +58,15 @@ phone,first_name,company,use_ai
 +1234567890,John,Acme Corp,true
 +1987654321,Jane,Tech Inc,false
 ```
+
+Rows are imported in the same order as they appear in the CSV. The row numbers shown on the Compose page correspond directly to these positions, making it easy to segment your uploads.
+
+## Segmenting Contacts by Row Range
+
+- Each CSV upload is stored as a distinct batch with preserved row order.
+- When composing a campaign, select the batch and specify the start/end row numbers to target.
+- The preview pane shows the first and last few contacts within the selected range before you create the campaign.
+- Campaign details display the targeted batch ID and row range so you can track which contacts will receive the messages.
 
 ## Message Placeholders
 

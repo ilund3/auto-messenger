@@ -41,13 +41,20 @@
             <div class="upload-info">
                 <h4>CSV Format Requirements:</h4>
                 <ul>
-                    <li>Required columns: <code>phone</code>, <code>first_name</code>, <code>company</code>, <code>use_ai</code></li>
-                    <li>Optional column: <code>city</code> (will be available as <code>{city}</code> placeholder)</li>
-                    <li>Phone numbers should be in format: +1234567890</li>
-                    <li>use_ai column should contain: true/false or 1/0</li>
-                    <li>use_ai text will be used as placeholder <code>{use_ai}</code> in messages</li>
+                    <li><strong>Required column: <code>phone</code></strong> (phone numbers should be in format: +1234567890)</li>
+                    <li><strong>Any other columns are optional</strong> and can be used as placeholders in your messages</li>
+                    <li>Use <code>{column_name}</code> in your messages to insert values from any column</li>
+                    <li>Examples: <code>{first_name}</code>, <code>{company}</code>, <code>{city}</code>, <code>{use_ai}</code>, <code>{email}</code>, etc.</li>
+                    <li>Column names are case-sensitive - use the exact column name from your CSV</li>
+                    <li>Rows without phone numbers are automatically skipped</li>
                 </ul>
             </div>
+        </div>
+
+        <div class="batches-section" id="batchesSection" style="display: none;">
+            <h3>Uploaded Batches</h3>
+            <p style="color: #64748b; margin-bottom: 1rem;">Manage your uploaded CSV batches. Deleting a batch will remove all contacts from that specific upload.</p>
+            <div class="batches-list" id="batchesList"></div>
         </div>
 
         <div class="contacts-section" id="contactsSection" style="display: none;">

@@ -26,6 +26,31 @@
 
         <form class="compose-form" id="composeForm">
             <div class="form-group">
+                <label for="contactBatchSelect">Contact Upload</label>
+                <select id="contactBatchSelect" name="contactBatchSelect" required>
+                    <option value="" disabled selected>Loading batches...</option>
+                </select>
+                <small class="field-help" id="batchHelpText">Select an uploaded CSV batch to target for this campaign.</small>
+            </div>
+
+            <div class="form-group range-picker" id="rangePicker" style="display: none;">
+                <div class="range-input">
+                    <label for="rangeStart">Start Row</label>
+                    <input type="number" id="rangeStart" name="rangeStart" min="1" value="1">
+                </div>
+                <div class="range-input">
+                    <label for="rangeEnd">End Row</label>
+                    <input type="number" id="rangeEnd" name="rangeEnd" min="1" value="1">
+                </div>
+                <small class="field-help">Only contacts within this row range (inclusive) will be included in the campaign.</small>
+            </div>
+
+            <div class="preview-section" id="rangePreview" style="display: none;">
+                <h3>Contact Range Preview</h3>
+                <div id="rangePreviewContent" class="preview-content"></div>
+            </div>
+
+            <div class="form-group">
                 <label for="campaignName">Campaign Name</label>
                 <input type="text" id="campaignName" name="campaignName" required placeholder="Enter campaign name">
             </div>
@@ -34,14 +59,11 @@
                 <label for="message">Message</label>
                 <textarea id="message" name="message" rows="6" required placeholder="Type your message here..."></textarea>
                 <div class="field-help">
-                    <p>Use these placeholders to personalize your message:</p>
-                    <div class="placeholder-tags">
-                        <span class="placeholder-tag" onclick="insertPlaceholder('{phone}')">{phone}</span>
-                        <span class="placeholder-tag" onclick="insertPlaceholder('{first_name}')">{first_name}</span>
-                        <span class="placeholder-tag" onclick="insertPlaceholder('{company}')">{company}</span>
-                        <span class="placeholder-tag" onclick="insertPlaceholder('{city}')">{city}</span>
-                        <span class="placeholder-tag" onclick="insertPlaceholder('{use_ai}')">{use_ai}</span>
+                    <p>Use placeholders to personalize your message. Type <code>{column_name}</code> for any column in your CSV:</p>
+                    <div class="placeholder-tags" id="placeholderTagsMain">
+                        <span class="placeholder-tag placeholder-tag-empty">Select an upload batch to load column placeholders</span>
                     </div>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #64748b;">All column headers from your CSV upload are available here once you select a batch.</p>
                 </div>
             </div>
 
